@@ -3456,12 +3456,24 @@ function qEnd() {
   document.getElementById('end-sub').textContent      = sub;
 
   const bd = qState.breakdown;
-  document.getElementById('bc-prog').textContent =
-    bd.Programming.asked > 0
-      ? `${bd.Programming.correct} / ${bd.Programming.asked} correct` : 'Not attempted';
-  document.getElementById('bc-git').textContent =
-    bd.GitHub.asked > 0
-      ? `${bd.GitHub.correct} / ${bd.GitHub.asked} correct` : 'Not attempted';
+  const progCell = document.getElementById('bc-prog').closest('.bc-cell');
+  const gitCell  = document.getElementById('bc-git').closest('.bc-cell');
+
+  if (bd.Programming.asked > 0) {
+    progCell.style.display = '';
+    document.getElementById('bc-prog').textContent =
+      `${bd.Programming.correct} / ${bd.Programming.asked} correct`;
+  } else {
+    progCell.style.display = 'none';
+  }
+
+  if (bd.GitHub.asked > 0) {
+    gitCell.style.display = '';
+    document.getElementById('bc-git').textContent =
+      `${bd.GitHub.correct} / ${bd.GitHub.asked} correct`;
+  } else {
+    gitCell.style.display = 'none';
+  }
 
   showQScreen('qs-end');
 }
@@ -3502,11 +3514,24 @@ function setQuizMode(mode) {
   document.getElementById('q-count-step-label').textContent      = isOpen ? '04' : '03';
 
   if (!isOpen) { mcqRefreshBanner(); }
+// Hide 15 & 20 options for open-ended mode 
+document.querySelector('.count-pill[data-count="15"]').style.display = isOpen ? 'none' : '';
+document.querySelector('.count-pill[data-count="20"]').style.display = isOpen ? 'none' : '';
+
+// If open-ended is active and 15/20 was previously selected, reset to 10
+if (isOpen) {
+  const selectedCount = document.querySelector('.count-pill.selected');
+  if (selectedCount && (selectedCount.dataset.count === '15' || selectedCount.dataset.count === '20')) {
+    document.querySelectorAll('.count-pill').forEach(p => p.classList.remove('selected'));
+    document.querySelector('.count-pill[data-count="10"]').classList.add('selected');
+  }
+}
 }
 
 document.querySelectorAll('.quiz-mode-btn').forEach(btn => {
   btn.addEventListener('click', () => setQuizMode(btn.dataset.mode));
 });
+setQuizMode('open');
 
 /* ── MCQ Language buttons ────────────────────────────────────── */
 let mcqActiveLang = 'all';
