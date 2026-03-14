@@ -598,12 +598,12 @@ html.light .dash-hero .big-title {
 .dash-hero .big-title em {
   font-style: normal;
   display: inline-block;
-  padding: 0.01em 0.20em 0.05em; /* Creates the spacing for the oval */
+  padding: 0.05em 0.35em 0.1em; /* Creates the spacing for the oval */
   margin-left: 0.1em;
-  border-radius: 20px; /* Gives it the perfect pill/oval shape */
+  border-radius: 30px; /* Gives it the perfect pill/oval shape */
   
   /* Styling using your existing theme variables */
-  border: 0.05em solid var(--white); /* Uses ems to scale nicely on mobile */
+  border: 0.05em solid var(--blue); /* Uses ems to scale nicely on mobile */
   background: color-mix(in srgb, var(--blue) 12%, transparent); /* Subtle fill */
   
   /* Overrides the parent's transparent gradient text so it doesn't break */
@@ -617,8 +617,7 @@ html.light .dash-hero .big-title {
 }
 .dash-hero .sub {
   font-family: var(--font-mono); font-size: .78rem;
-  color: linear-gradient(135deg, #1a1d2e 0%, #3050c0 100%);
-  
+  color: var(--ink3); letter-spacing: .04em;
 }
 
 .dash-grid {
