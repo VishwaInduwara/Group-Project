@@ -560,7 +560,7 @@ html.light .dash-hero .big-title {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem; margin-top: 2.5rem;
-}
+} 
 
 /* Module card on dashboard — StudyForge four-card style */
 .mod-card {
@@ -1204,6 +1204,7 @@ html.light .dash-hero .big-title {
   .mcq-stats { grid-template-columns: repeat(3,1fr); }
 }
 
+
 /* ═══════════════════════════════════════════════════════
    NEW MODULE CARD COLORS
 ═══════════════════════════════════════════════════════ */
@@ -1560,6 +1561,39 @@ html.light .dash-hero .big-title {
   .answer-area    { flex-direction: column; }
   .breakdown-cells{ grid-template-columns: 1fr; }
   .focus-time     { font-size: 5rem; }
+
+  /* Fix clipped card titles */
+  .mod-card       { min-height: unset; }
+  .mod-title      { font-size: 1rem; white-space: normal; overflow: visible; }
+  .mod-desc       { font-size: .75rem; }
+  .mod-content    { padding: 1.1rem 1rem 1rem; }
+}
+/* MOBILE */
+@media (max-width: 600px) {
+
+  .dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+  .prod-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .input-grid-2,
+  .input-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .sleep-week-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .topbar {
+    padding: 0 1rem;
+  }
+
 }
 </style>
 </head>
@@ -1648,7 +1682,7 @@ html.light .dash-hero .big-title {
     </div>
   </div>
 
-  <div class="dash-grid" style="grid-template-columns:repeat(2,1fr)">
+  <div class="dash-grid">
     <div class="mod-card" data-mod="sleep" id="nav-sleep">
       <div class="mod-content">
         <span class="mod-tag">Health</span>
