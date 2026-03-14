@@ -146,10 +146,16 @@ body::before {
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  /* UPDATED: Smaller padding for mobile, larger for desktop */
+  padding: 0 1rem; 
   height: 60px;
   transition: background .3s;
 }
+
+@media (min-width: 768px) {
+  .topbar { padding: 0 2rem; }
+}
+
 html.light .topbar { background: rgba(244,246,255,0.92); }
 
 .topbar-brand {
@@ -193,7 +199,12 @@ html.light .topbar { background: rgba(244,246,255,0.92); }
   vertical-align: middle;
 }
 
-.topbar-right { display: flex; align-items: center; gap: .75rem; }
+.topbar-right { 
+  display: flex; 
+  align-items: center; 
+  gap: .75rem; 
+  flex-shrink: 0; /* ADDED: Prevents the buttons from getting squashed */
+}
 
 /* breadcrumb */
 .breadcrumb {
@@ -201,6 +212,17 @@ html.light .topbar { background: rgba(244,246,255,0.92); }
   font-size: .68rem;
   color: var(--ink3);
   display: flex; align-items: center; gap: .4rem;
+  /* ADDED: Prevent wrapping and hide if it doesn't fit */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide the location/breadcrumb on mobile phones to prevent clipping */
+@media (max-width: 480px) {
+  .breadcrumb {
+    display: none;
+  }
 }
 .breadcrumb .sep { color: var(--border2); }
 .breadcrumb .cur { color: var(--blue); }
@@ -1390,13 +1412,26 @@ html.light .dash-hero .big-title {
    ╚══════════════════════════════════════╝
 ═══════════════════════════════════════════════════════ */
 .planner-input-row {
-  display: flex; gap: .65rem; margin-bottom: 1rem;
+  display: flex; 
+  gap: .65rem; 
+  margin-bottom: 1rem;
+  /* Add this to ensure items don't overflow the container */
+  width: 100%; 
+  align-items: stretch;
 }
 .planner-input {
-  flex: 1; background: var(--bg);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  color: var(--ink); font-family: var(--font-body); font-size: .9rem;
-  padding: .7rem 1rem; outline: none;
+  flex: 1; 
+  /* ADD THIS: This is the secret fix for clipping */
+  min-width: 0; 
+  
+  background: var(--bg);
+  border: 1px solid var(--border); 
+  border-radius: var(--radius);
+  color: var(--ink); 
+  font-family: var(--font-body); 
+  font-size: .9rem;
+  padding: .7rem 1rem; 
+  outline: none;
   transition: border-color .2s;
 }
 .planner-input:focus { border-color: var(--pomo); background: var(--surface); }
@@ -1694,7 +1729,7 @@ html.light .dash-hero .big-title {
 <div class="wrap">
 
   <div class="dash-hero">
-    <div class="hero-eyebrow">✦ Your All-in-One Study Hub ✦</div>
+    <div class="hero-eyebrow">✦ Unlock Your Focus ✦</div>
     <div class="big-title">Flow<em>State</em></div>
     <p class="sub">// sleep · productivity · focus · knowledge — all in one place</p>
   </div>
